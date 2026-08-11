@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AnimeFlow — recommandations d'animes basées sur AniList.">
+  <title>AnimeFlow — Recommandations d'animes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="AnimeFlow accueil">
+      <span class="brand-mark">✦</span>
+      <span>Anime<span>Flow</span></span>
+    </a>
+    <nav>
+      <a href="#home">Accueil</a>
+      <a href="#categories">Catégories</a>
+      <a href="#chat">Chat IA</a>
+    </nav>
+    <button class="chat-cta" data-go-chat>Recommandation IA <span>→</span></button>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">TON PROCHAIN ANIME EST ICI</p>
+        <h1>Découvre un anime<br><em>fait pour toi.</em></h1>
+        <p class="hero-text">Explore les catégories ou décris tes goûts. Les titres affichés viennent de vraies données AniList.</p>
+        <div class="hero-actions">
+          <button class="primary" data-go-chat>Parler à l'assistant ✦</button>
+          <a class="secondary" href="#categories">Explorer les genres</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-orb"></div>
+        <div class="hero-card card-a"><span>★ 9.1</span><b>Top anime</b></div>
+        <div class="hero-card card-b"><span>VOSTFR</span><b>À regarder</b></div>
+        <div class="hero-card card-c"><span>VF</span><b>Disponible</b></div>
+        <div class="hero-character">アニメ</div>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">EXPLORE</p>
+          <h2>Choisis ton univers</h2>
+        </div>
+        <p class="muted">Des images et informations récupérées directement depuis AniList.</p>
+      </div>
+      <div id="category-grid" class="category-grid"></div>
+    </section>
+
+    <section id="results" class="section results-section hidden">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow" id="results-kicker">CATÉGORIE</p>
+          <h2 id="results-title">Anime</h2>
+        </div>
+        <button class="ghost" id="back-categories">← Catégories</button>
+      </div>
+
+      <div class="filters">
+        <label>Année
+          <input id="year-filter" type="number" min="1950" max="2030" placeholder="Toutes">
+        </label>
+        <label>Score min.
+          <select id="score-filter">
+            <option value="0">Tous</option><option value="60">6+</option><option value="70">7+</option>
+            <option value="80">8+</option><option value="90">9+</option>
+          </select>
+        </label>
+        <label>Statut
+          <select id="status-filter">
+            <option value="">Tous</option><option value="FINISHED">Terminé</option>
+            <option value="RELEASING">En cours</option><option value="NOT_YET_RELEASED">À venir</option>
+            <option value="CANCELLED">Annulé</option>
+          </select>
+        </label>
+        <label>Format
+          <select id="format-filter">
+            <option value="">Tous</option><option value="TV">TV</option><option value="MOVIE">Film</option>
+            <option value="ONA">ONA</option><option value="OVA">OVA</option><option value="SPECIAL">Spécial</option>
+          </select>
+        </label>
+        <label>Audio / sous-titres
+          <select id="language-filter">
+            <option value="">Tous</option><option value="VF">VF uniquement</option>
+            <option value="VO">VO / VOSTFR</option>
+          </select>
+        </label>
+        <button class="filter-reset" id="reset-filters">Réinitialiser</button>
+      </div>
+
+      <div id="results-status" class="status"></div>
+      <div id="anime-grid" class="anime-grid"></div>
+    </section>
+
+    <section id="chat" class="section chat-section">
+      <div class="chat-intro">
+        <p class="eyebrow">ASSISTANT ANIME</p>
+        <h2>Dis-moi ce que tu veux regarder.</h2>
+        <p>Écris par exemple : « Je veux un shonen drôle avec beaucoup d'action, en VF, et j'ai déjà vu Naruto. »</p>
+        <div class="chips">
+          <button class="prompt-chip">Un anime d'action avec beaucoup d'épisodes</button>
+          <button class="prompt-chip">Une romance douce et drôle</button>
+          <button class="prompt-chip">Un isekai sombre en VOSTFR</button>
+        </div>
+      </div>
+
+      <div class="chat-box">
+        <div id="chat-messages" class="messages">
+          <div class="message assistant">
+            <div class="avatar">✦</div>
+            <div><strong>AnimeFlow</strong><p>Salut ! Donne-moi tes goûts, les animes que tu as déjà vus, ton ambiance préférée et si tu veux plutôt VF ou VO/VOSTFR.</p></div>
+          </div>
+        </div>
+        <form id="chat-form" class="chat-form">
+          <input id="chat-input" autocomplete="off" placeholder="Ex. Je veux quelque chose comme Jujutsu Kaisen..." required>
+          <button aria-label="Envoyer">➤</button>
+        </form>
+        <small class="chat-note">MVP : les recommandations sont sélectionnées uniquement parmi les résultats réels d'AniList. La disponibilité VF/plateforme est indiquée comme « à vérifier » lorsqu'elle n'est pas confirmée dans notre mapping local.</small>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Détails de l'anime">
+    <div class="modal-backdrop" data-close-modal></div>
+    <article class="modal-card">
+      <button class="modal-close" data-close-modal aria-label="Fermer">×</button>
+      <div id="modal-content"></div>
+    </article>
+  </div>
+
+  <footer>
+    <span>AnimeFlow MVP</span>
+    <span>Données anime : AniList</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
